@@ -94,22 +94,6 @@ alembic upgrade head
 uvicorn app.main:app --reload
 ```
 
-## Загрузка на GitHub
-
-См. инструкцию в [GITHUB_SETUP.md](GITHUB_SETUP.md) или выполните:
-
-```bash
-# Windows
-SETUP_GITHUB.bat
-
-# Linux/Mac
-git init
-git add .
-git commit -m "Initial commit"
-git remote add origin https://github.com/YOUR_USERNAME/linky.git
-git push -u origin main
-```
-
 ## Тестирование
 
 ```bash
