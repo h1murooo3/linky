@@ -52,3 +52,4 @@ gh repo create linky --public --source=. --remote=origin --push
 2. Добавьте теги: `python`, `fastapi`, `docker`, `postgresql`
 3. Настройте GitHub Actions (уже готов в `.github/workflows/ci.yml`)
 
+

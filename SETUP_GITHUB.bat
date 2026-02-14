@@ -54,3 +54,4 @@ echo Подробная инструкция в файле GITHUB_SETUP.md
 echo.
 pause
 
+
