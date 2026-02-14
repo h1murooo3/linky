@@ -1,0 +1,116 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: linky_db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-linky_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-linky_password}
+      POSTGRES_DB: ${POSTGRES_DB:-linky_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-linky_user}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: linky_redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: linky_app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-linky_user}:${POSTGRES_PASSWORD:-linky_password}@db:5432/${POSTGRES_DB:-linky_db}
+      REDIS_URL: redis://redis:6379/0
+      SECRET_KEY: ${SECRET_KEY:-dev-secret-key-change-in-production}
+      ALGORITHM: ${ALGORITHM:-HS256}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-30}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file:
+      - .env
+
+  celery_worker:
+    build: .
+    container_name: linky_celery_worker
+    command: celery -A app.core.celery_app worker --loglevel=info
+    volumes:
+      - .:/app
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-linky_user}:${POSTGRES_PASSWORD:-linky_password}@db:5432/${POSTGRES_DB:-linky_db}
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - .env
+
+  celery_beat:
+    build: .
+    container_name: linky_celery_beat
+    command: celery -A app.core.celery_app beat --loglevel=info
+    volumes:
+      - .:/app
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-linky_user}:${POSTGRES_PASSWORD:-linky_password}@db:5432/${POSTGRES_DB:-linky_db}
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - .env
+
+  # Мониторинг (опционально - раскомментируйте при необходимости)
+  # prometheus:
+  #   image: prom/prometheus:latest
+  #   container_name: linky_prometheus
+  #   volumes:
+  #     - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+  #     - prometheus_data:/prometheus
+  #   command:
+  #     - '--config.file=/etc/prometheus/prometheus.yml'
+  #     - '--storage.tsdb.path=/prometheus'
+  #   ports:
+  #     - "9090:9090"
+  #   depends_on:
+  #     - app
+  #
+  # grafana:
+  #   image: grafana/grafana:latest
+  #   container_name: linky_grafana
+  #   volumes:
+  #     - grafana_data:/var/lib/grafana
+  #     - ./docker/grafana/provisioning:/etc/grafana/provisioning
+  #   environment:
+  #     - GF_SECURITY_ADMIN_USER=admin
+  #     - GF_SECURITY_ADMIN_PASSWORD=admin
+  #     - GF_USERS_ALLOW_SIGN_UP=false
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - prometheus
+
+volumes:
+  postgres_data:
+  # prometheus_data:  # Раскомментируйте при использовании Prometheus
+  # grafana_data:     # Раскомментируйте при использовании Grafana
+
