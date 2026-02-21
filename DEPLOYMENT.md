@@ -20,6 +20,8 @@ cp .env.example .env
 
 ### 2. Запуск через Docker Compose
 
+**Важно:** Убедитесь, что Docker Desktop запущен перед выполнением команд!
+
 ```bash
 # Сборка и запуск всех сервисов
 docker-compose up -d
@@ -29,6 +31,10 @@ docker-compose ps
 
 # Просмотр логов
 docker-compose logs -f app
+
+# Если контейнеры не запускаются, проверьте:
+# 1. Docker Desktop запущен
+# 2. Порты 8000, 5432, 6379 не заняты другими приложениями
 ```
 
 ### 3. Применение миграций
@@ -43,10 +49,21 @@ alembic upgrade head
 
 ### 4. Проверка работы
 
+**Основные сервисы:**
 - API: http://localhost:8000
 - Swagger документация: http://localhost:8000/docs
-- Prometheus: http://localhost:9090
-- Grafana: http://localhost:3000 (admin/admin)
+- ReDoc: http://localhost:8000/redoc
+- Метрики Prometheus: http://localhost:8000/metrics
+
+**Мониторинг (опционально):**
+> **Примечание:** Prometheus и Grafana закомментированы в `docker-compose.yml` по умолчанию.
+> Для их запуска раскомментируйте соответствующие секции в `docker-compose.yml` и перезапустите:
+> ```bash
+> docker-compose up -d
+> ```
+> После этого будут доступны:
+> - Prometheus: http://localhost:9090
+> - Grafana: http://localhost:3000 (admin/admin)
 
 ## Разработка
 
