@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linky — R&D Talent Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/css/main.css" />
+</head>
+<body>
+    <div class="app">
+        <header class="app-header">
+            <div class="brand">
+                <div class="brand-logo">L</div>
+                <div class="brand-text">
+                    <h1>Linky</h1>
+                    <p>R&amp;D Talent Scraper Dashboard</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="user-panel" id="user-panel">
+                    <span id="user-name">Гость</span>
+                    <button id="btn-auth" class="btn btn-ghost">Войти</button>
+                </div>
+                <button id="btn-theme-toggle" class="btn-icon" aria-label="Переключить тему">
+                    <span class="icon-sun"></span>
+                </button>
+            </div>
+        </header>
+
+        <main class="app-main">
+            <section class="sidebar">
+                <div class="card card-auth" id="auth-card">
+                    <h2>Аутентификация</h2>
+                    <div class="tabs">
+                        <button class="tab active" data-tab="login">Вход</button>
+                        <button class="tab" data-tab="register">Регистрация</button>
+                    </div>
+
+                    <form id="form-login" class="form active">
+                        <label class="field">
+                            <span>Имя пользователя</span>
+                            <input type="text" name="username" required />
+                        </label>
+                        <label class="field">
+                            <span>Пароль</span>
+                            <input type="password" name="password" required />
+                        </label>
+                        <button type="submit" class="btn btn-primary full">Войти</button>
+                        <p class="hint">
+                            Для быстрого старта можно создать тестового пользователя на вкладке
+                            <strong>Регистрация</strong>.
+                        </p>
+                    </form>
+
+                    <form id="form-register" class="form">
+                        <label class="field">
+                            <span>Имя пользователя</span>
+                            <input type="text" name="username" required />
+                        </label>
+                        <label class="field">
+                            <span>Email</span>
+                            <input type="email" name="email" required />
+                        </label>
+                        <label class="field">
+                            <span>Пароль</span>
+                            <input type="password" name="password" required />
+                        </label>
+                        <button type="submit" class="btn btn-secondary full">Зарегистрировать</button>
+                    </form>
+                    <div class="form-status" id="auth-status"></div>
+                </div>
+
+                <div class="card">
+                    <h2>Фильтры поиска</h2>
+                    <form id="form-filters">
+                        <label class="field">
+                            <span>Источник</span>
+                            <select name="source">
+                                <option value="">Все</option>
+                                <option value="headhunter">HeadHunter</option>
+                                <option value="linkedin">LinkedIn</option>
+                            </select>
+                        </label>
+                        <label class="field">
+                            <span>Компания</span>
+                            <input type="text" name="company" placeholder="Например, Yandex" />
+                        </label>
+                        <label class="field">
+                            <span>Локация</span>
+                            <input type="text" name="location" placeholder="Москва, Россия..." />
+                        </label>
+                        <label class="field">
+                            <span>Поиск по заголовку</span>
+                            <input type="text" name="title_search" placeholder="R&D, Data Scientist..." />
+                        </label>
+                        <label class="field">
+                            <span>Тип вакансии</span>
+                            <select name="job_type">
+                                <option value="">Все</option>
+                                <option value="research">Research</option>
+                                <option value="engineering">Engineering</option>
+                                <option value="management">Management</option>
+                                <option value="internship">Internship</option>
+                            </select>
+                        </label>
+                        <div class="field-group">
+                            <label class="field">
+                                <span>Зарплата от</span>
+                                <input type="number" name="min_salary" min="0" step="1000" />
+                            </label>
+                            <label class="field">
+                                <span>Зарплата до</span>
+                                <input type="number" name="max_salary" min="0" step="1000" />
+                            </label>
+                        </div>
+                        <label class="field">
+                            <span>Навыки (через запятую)</span>
+                            <input type="text" name="skills" placeholder="python, ml, docker" />
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="processed" />
+                            <span>Только обработанные вакансии</span>
+                        </label>
+                        <button type="submit" class="btn btn-primary full">Применить фильтры</button>
+                        <button type="button" id="btn-reset-filters" class="btn btn-ghost full">
+                            Сбросить
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <section class="content">
+                <div class="cards-grid">
+                    <div class="card metric-card">
+                        <div class="metric-label">Всего вакансий</div>
+                        <div class="metric-value" id="metric-total">—</div>
+                        <div class="metric-sub">
+                            HH: <span id="metric-hh">—</span> · LinkedIn:
+                            <span id="metric-li">—</span>
+                        </div>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="metric-label">Обработанные вакансии</div>
+                        <div class="metric-value" id="metric-processed">—</div>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="metric-label">Топ навыки</div>
+                        <ul class="tags" id="top-skills"></ul>
+                    </div>
+                </div>
+
+                <div class="card table-card">
+                    <div class="table-header">
+                        <h2>Список вакансий</h2>
+                        <div class="table-meta">
+                            <button id="btn-seed-demo" class="btn btn-secondary">Загрузить демо-данные</button>
+                            <span id="jobs-count">0 результатов</span>
+                            <div class="pager">
+                                <button id="btn-prev-page" class="btn-icon" disabled>&lt;</button>
+                                <span id="page-info">1 / 1</span>
+                                <button id="btn-next-page" class="btn-icon" disabled>&gt;</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="jobs-table">
+                            <thead>
+                                <tr>
+                                    <th>Заголовок</th>
+                                    <th>Тип</th>
+                                    <th>Компания</th>
+                                    <th>Локация</th>
+                                    <th>Зарплата</th>
+                                    <th>Источник</th>
+                                    <th>Навыки</th>
+                                    <th>Дата</th>
+                                </tr>
+                            </thead>
+                            <tbody id="jobs-body">
+                                <tr>
+                                    <td colspan="7" class="placeholder">
+                                        Нет данных. Войдите в систему и запустите сбор вакансий.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div id="toast" class="toast"></div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
+
