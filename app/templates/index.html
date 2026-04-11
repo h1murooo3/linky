@@ -3,202 +3,176 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Linky — R&D Talent Dashboard</title>
+    <title>Алматыдағы жұмыс — Linky</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/static/css/main.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/main.css?v=20260307-1" />
 </head>
-<body>
+<body class="theme-hh">
     <div class="app">
-        <header class="app-header">
-            <div class="brand">
-                <div class="brand-logo">L</div>
-                <div class="brand-text">
-                    <h1>Linky</h1>
-                    <p>R&amp;D Talent Scraper Dashboard</p>
+        <header class="site-header">
+            <div class="header-inner">
+                <a href="/" class="brand">
+                    <span class="brand-logo">L</span>
+                    <span class="brand-name">Linky</span>
+                </a>
+                <nav class="nav-links">
+                    <span class="nav-item active">Алматы</span>
+                    <a href="#search" class="nav-item">Ізденушілерге</a>
+                </nav>
+                <div class="header-actions">
+                    <div class="user-panel" id="user-panel">
+                        <span id="user-name">Гость</span>
+                        <button id="btn-auth" class="btn btn-outline">Кіру</button>
+                    </div>
+                    <button id="btn-theme-toggle" class="btn-icon" aria-label="Тема">🌙</button>
                 </div>
-            </div>
-            <div class="header-actions">
-                <div class="user-panel" id="user-panel">
-                    <span id="user-name">Гость</span>
-                    <button id="btn-auth" class="btn btn-ghost">Войти</button>
-                </div>
-                <button id="btn-theme-toggle" class="btn-icon" aria-label="Переключить тему">
-                    <span class="icon-sun"></span>
-                </button>
             </div>
         </header>
 
-        <main class="app-main">
-            <section class="sidebar">
-                <div class="card card-auth" id="auth-card">
-                    <h2>Аутентификация</h2>
-                    <div class="tabs">
-                        <button class="tab active" data-tab="login">Вход</button>
-                        <button class="tab" data-tab="register">Регистрация</button>
-                    </div>
-
-                    <form id="form-login" class="form active">
-                        <label class="field">
-                            <span>Имя пользователя</span>
-                            <input type="text" name="username" required />
-                        </label>
-                        <label class="field">
-                            <span>Пароль</span>
-                            <input type="password" name="password" required />
-                        </label>
-                        <button type="submit" class="btn btn-primary full">Войти</button>
-                        <p class="hint">
-                            Для быстрого старта можно создать тестового пользователя на вкладке
-                            <strong>Регистрация</strong>.
-                        </p>
+        <section class="hero">
+            <div class="hero-illus hero-illus-left" aria-hidden="true">
+                <svg width="200" height="180" viewBox="0 0 200 180" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="30" y="90" width="100" height="70" rx="12" fill="#e0f2fe"/>
+                    <rect x="45" y="105" width="70" height="45" rx="6" fill="#fff" stroke="#bae6fd"/>
+                    <circle cx="80" cy="65" r="22" fill="#fef3c7"/>
+                    <rect x="65" y="85" width="30" height="35" rx="6" fill="#2563eb"/>
+                    <rect x="60" y="118" width="40" height="42" rx="6" fill="#1e40af"/>
+                    <rect x="115" y="95" width="22" height="28" rx="4" fill="#fcd34d"/>
+                </svg>
+            </div>
+            <div class="hero-content">
+                <h1 class="hero-title">Алматыдағы жұмыс</h1>
+                <p class="hero-subtitle">Қызметкерді іздеу және бос жұмыс орындарын табу. Linky — №1 сервис Алматыдағы жұмыс іздеу бойынша.</p>
+                <div class="search-block" id="search">
+                    <form id="form-search" class="search-form">
+                        <span class="search-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                        </span>
+                        <input type="text" name="title_search" placeholder="Мамандық, лауазым немесе компания" class="search-input" />
+                        <button type="submit" class="btn btn-primary btn-search">Табу</button>
                     </form>
+                </div>
+            </div>
+            <div class="hero-illus hero-illus-right" aria-hidden="true">
+                <svg width="200" height="180" viewBox="0 0 200 180" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="90" width="100" height="70" rx="12" fill="#e0f2fe"/>
+                    <rect x="65" y="100" width="80" height="50" rx="6" fill="#fff" stroke="#bae6fd"/>
+                    <circle cx="100" cy="60" r="20" fill="#fef3c7"/>
+                    <path d="M85 82 Q100 72 115 82 L118 118 L82 118 Z" fill="#2563eb"/>
+                    <rect x="82" y="115" width="36" height="45" rx="6" fill="#1e40af"/>
+                    <circle cx="145" y="125" r="15" fill="#86efac"/>
+                </svg>
+            </div>
+            <div class="hero-decor" aria-hidden="true">
+                <span class="decor-item decor-note">📋</span>
+                <span class="decor-item decor-cup">☕</span>
+                <span class="decor-item decor-pen">✏️</span>
+            </div>
+        </section>
 
+        <div class="stats-bar">
+            <div class="stat"><span class="stat-value" id="metric-total">0</span> <span class="stat-label">вакансиялар</span></div>
+            <div class="stat"><span class="stat-value" id="metric-hh">0</span> <span class="stat-label">HH</span></div>
+            <div class="stat"><span class="stat-value" id="metric-li">0</span> <span class="stat-label">LinkedIn</span></div>
+        </div>
+
+        <main class="main-content">
+            <aside class="filters-panel">
+                <div class="card card-auth" id="auth-card">
+                    <h2>Кіру / Тіркелу</h2>
+                    <div class="tabs">
+                        <button class="tab active" data-tab="login">Кіру</button>
+                        <button class="tab" data-tab="register">Тіркелу</button>
+                    </div>
+                    <form id="form-login" class="form active">
+                        <label class="field"><span>Логин</span><input type="text" name="username" required /></label>
+                        <label class="field"><span>Құпия сөз</span><input type="password" name="password" required /></label>
+                        <button type="submit" class="btn btn-primary full">Кіру</button>
+                    </form>
                     <form id="form-register" class="form">
-                        <label class="field">
-                            <span>Имя пользователя</span>
-                            <input type="text" name="username" required />
-                        </label>
-                        <label class="field">
-                            <span>Email</span>
-                            <input type="email" name="email" required />
-                        </label>
-                        <label class="field">
-                            <span>Пароль</span>
-                            <input type="password" name="password" required />
-                        </label>
-                        <button type="submit" class="btn btn-secondary full">Зарегистрировать</button>
+                        <label class="field"><span>Логин</span><input type="text" name="username" required /></label>
+                        <label class="field"><span>Email</span><input type="email" name="email" required /></label>
+                        <label class="field"><span>Құпия сөз</span><input type="password" name="password" required /></label>
+                        <button type="submit" class="btn btn-secondary full">Тіркелу</button>
                     </form>
                     <div class="form-status" id="auth-status"></div>
                 </div>
-
-                <div class="card">
-                    <h2>Фильтры поиска</h2>
+                <div class="card filters-card">
+                    <h2>Сүзгілер</h2>
                     <form id="form-filters">
-                        <label class="field">
-                            <span>Источник</span>
+                        <label class="field"><span>Компания</span><input type="text" name="company" placeholder="Мысалы, Kaspi" /></label>
+                        <label class="field"><span>Лауазым</span><input type="text" name="title_search" placeholder="Программист, курьер..." /></label>
+                        <label class="field"><span>Жалақыдан</span><input type="number" name="min_salary" min="0" placeholder="〒" /></label>
+                        <label class="field"><span>Жалақыға дейін</span><input type="number" name="max_salary" min="0" placeholder="〒" /></label>
+                        <label class="field"><span>Көзі</span>
                             <select name="source">
-                                <option value="">Все</option>
+                                <option value="">Барлығы</option>
                                 <option value="headhunter">HeadHunter</option>
                                 <option value="linkedin">LinkedIn</option>
                             </select>
                         </label>
-                        <label class="field">
-                            <span>Компания</span>
-                            <input type="text" name="company" placeholder="Например, Yandex" />
-                        </label>
-                        <label class="field">
-                            <span>Локация</span>
-                            <input type="text" name="location" placeholder="Москва, Россия..." />
-                        </label>
-                        <label class="field">
-                            <span>Поиск по заголовку</span>
-                            <input type="text" name="title_search" placeholder="R&D, Data Scientist..." />
-                        </label>
-                        <label class="field">
-                            <span>Тип вакансии</span>
-                            <select name="job_type">
-                                <option value="">Все</option>
-                                <option value="research">Research</option>
-                                <option value="engineering">Engineering</option>
-                                <option value="management">Management</option>
-                                <option value="internship">Internship</option>
-                            </select>
-                        </label>
-                        <div class="field-group">
-                            <label class="field">
-                                <span>Зарплата от</span>
-                                <input type="number" name="min_salary" min="0" step="1000" />
-                            </label>
-                            <label class="field">
-                                <span>Зарплата до</span>
-                                <input type="number" name="max_salary" min="0" step="1000" />
-                            </label>
-                        </div>
-                        <label class="field">
-                            <span>Навыки (через запятую)</span>
-                            <input type="text" name="skills" placeholder="python, ml, docker" />
-                        </label>
-                        <label class="checkbox">
-                            <input type="checkbox" name="processed" />
-                            <span>Только обработанные вакансии</span>
-                        </label>
-                        <button type="submit" class="btn btn-primary full">Применить фильтры</button>
-                        <button type="button" id="btn-reset-filters" class="btn btn-ghost full">
-                            Сбросить
-                        </button>
+                        <button type="submit" class="btn btn-primary full">Қолдану</button>
+                        <button type="button" id="btn-reset-filters" class="btn btn-ghost full">Тазалау</button>
                     </form>
                 </div>
-            </section>
+            </aside>
 
-            <section class="content">
-                <div class="cards-grid">
-                    <div class="card metric-card">
-                        <div class="metric-label">Всего вакансий</div>
-                        <div class="metric-value" id="metric-total">—</div>
-                        <div class="metric-sub">
-                            HH: <span id="metric-hh">—</span> · LinkedIn:
-                            <span id="metric-li">—</span>
-                        </div>
-                    </div>
-                    <div class="card metric-card">
-                        <div class="metric-label">Обработанные вакансии</div>
-                        <div class="metric-value" id="metric-processed">—</div>
-                    </div>
-                    <div class="card metric-card">
-                        <div class="metric-label">Топ навыки</div>
-                        <ul class="tags" id="top-skills"></ul>
+            <section class="jobs-section">
+                <div class="section-head">
+                    <h2 class="section-title">Күндік жұмыс орындары</h2>
+                    <span class="section-meta" id="jobs-count">0 нәтиже</span>
+                    <div class="pager">
+                        <button id="btn-prev-page" class="btn-icon" disabled>‹</button>
+                        <span id="page-info">1 / 1</span>
+                        <button id="btn-next-page" class="btn-icon" disabled>›</button>
                     </div>
                 </div>
-
-                <div class="card table-card">
-                    <div class="table-header">
-                        <h2>Список вакансий</h2>
-                        <div class="table-meta">
-                            <button id="btn-seed-demo" class="btn btn-secondary">Загрузить демо-данные</button>
-                            <span id="jobs-count">0 результатов</span>
-                            <div class="pager">
-                                <button id="btn-prev-page" class="btn-icon" disabled>&lt;</button>
-                                <span id="page-info">1 / 1</span>
-                                <button id="btn-next-page" class="btn-icon" disabled>&gt;</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table-wrapper">
-                        <table class="jobs-table">
-                            <thead>
-                                <tr>
-                                    <th>Заголовок</th>
-                                    <th>Тип</th>
-                                    <th>Компания</th>
-                                    <th>Локация</th>
-                                    <th>Зарплата</th>
-                                    <th>Источник</th>
-                                    <th>Навыки</th>
-                                    <th>Дата</th>
-                                </tr>
-                            </thead>
-                            <tbody id="jobs-body">
-                                <tr>
-                                    <td colspan="7" class="placeholder">
-                                        Нет данных. Войдите в систему и запустите сбор вакансий.
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="jobs-grid" id="jobs-grid">
+                    <div class="jobs-placeholder">Жүктелуде...</div>
                 </div>
             </section>
         </main>
 
+        <footer class="site-footer">
+            © 2026 Linky — Алматыдағы жұмыс
+        </footer>
+
+        <div id="auth-modal" class="auth-modal" aria-hidden="true">
+            <div class="auth-modal-backdrop" id="auth-modal-backdrop"></div>
+            <div class="auth-modal-card">
+                <button class="auth-modal-close" id="auth-modal-close" aria-label="Жабу">×</button>
+                <div class="auth-modal-illus auth-modal-illus-left">
+                    <svg viewBox="0 0 160 140" fill="none"><rect x="20" y="60" width="80" height="60" rx="8" fill="#e0f2fe"/><rect x="30" y="72" width="60" height="38" rx="4" fill="#fff"/><circle cx="60" cy="45" r="18" fill="#fef3c7"/><rect x="48" y="62" width="24" height="28" rx="4" fill="#2563eb"/><rect x="44" y="88" width="32" height="32" rx="4" fill="#1e40af"/></svg>
+                </div>
+                <div class="auth-modal-illus auth-modal-illus-right">
+                    <svg viewBox="0 0 160 140" fill="none"><rect x="60" y="60" width="80" height="60" rx="8" fill="#e0f2fe"/><rect x="70" y="72" width="60" height="38" rx="4" fill="#fff"/><circle cx="100" cy="45" r="18" fill="#fef3c7"/><path d="M88 65 Q100 57 112 65 L115 95 L85 95 Z" fill="#2563eb"/><rect x="85" y="93" width="30" height="27" rx="4" fill="#1e40af"/></svg>
+                </div>
+                <div class="auth-modal-body">
+                    <h2 class="auth-modal-title">Вход</h2>
+                    <div class="auth-modal-tabs">
+                        <button class="auth-tab active" data-tab="login">Кіру</button>
+                        <button class="auth-tab" data-tab="register">Тіркелу</button>
+                    </div>
+                    <form id="form-login-modal" class="auth-form active">
+                        <label class="field"><span>Логин</span><input type="text" name="username" required /></label>
+                        <label class="field"><span>Құпия сөз</span><input type="password" name="password" required /></label>
+                        <button type="submit" class="btn btn-primary full">Кіру</button>
+                    </form>
+                    <form id="form-register-modal" class="auth-form">
+                        <label class="field"><span>Логин</span><input type="text" name="username" required /></label>
+                        <label class="field"><span>Email</span><input type="email" name="email" required /></label>
+                        <label class="field"><span>Құпия сөз</span><input type="password" name="password" required /></label>
+                        <button type="submit" class="btn btn-secondary full">Тіркелу</button>
+                    </form>
+                    <div class="form-status" id="auth-status-modal"></div>
+                </div>
+            </div>
+        </div>
+
         <div id="toast" class="toast"></div>
     </div>
-
     <script src="/static/js/main.js"></script>
 </body>
 </html>
-
