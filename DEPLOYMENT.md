@@ -55,15 +55,11 @@ alembic upgrade head
 - ReDoc: http://localhost:8000/redoc
 - Метрики Prometheus: http://localhost:8000/metrics
 
-**Мониторинг (опционально):**
-> **Примечание:** Prometheus и Grafana закомментированы в `docker-compose.yml` по умолчанию.
-> Для их запуска раскомментируйте соответствующие секции в `docker-compose.yml` и перезапустите:
-> ```bash
-> docker-compose up -d
-> ```
-> После этого будут доступны:
-> - Prometheus: http://localhost:9090
-> - Grafana: http://localhost:3000 (admin/admin)
+**Мониторинг и логи (включены в полном compose):**
+- Prometheus: http://localhost:9090
+- Grafana: http://localhost:3000 (admin/admin)
+- Loki: http://localhost:3100
+- Централизованные логи: Explore -> datasource `Loki`
 
 ## Разработка
 

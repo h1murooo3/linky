@@ -10,8 +10,10 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    # Без -d pg_isready подключается к БД с именем пользователя (linky_user) —
+    # такой БД нет, создаётся только POSTGRES_DB (linky_db).
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-linky_user}"]
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -33,6 +35,7 @@ services:
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     volumes:
       - .:/app
+      - ./logs:/app/logs
     ports:
       - "8000:8000"
     environment:
@@ -55,6 +58,7 @@ services:
     command: celery -A app.core.celery_app worker --loglevel=info
     volumes:
       - .:/app
+      - ./logs:/app/logs
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER:-linky_user}:${POSTGRES_PASSWORD:-linky_password}@db:5432/${POSTGRES_DB:-linky_db}
       REDIS_URL: redis://redis:6379/0
@@ -70,6 +74,7 @@ services:
     command: celery -A app.core.celery_app beat --loglevel=info
     volumes:
       - .:/app
+      - ./logs:/app/logs
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER:-linky_user}:${POSTGRES_PASSWORD:-linky_password}@db:5432/${POSTGRES_DB:-linky_db}
       REDIS_URL: redis://redis:6379/0
@@ -107,9 +112,31 @@ services:
       - "3000:3000"
     depends_on:
       - prometheus
+      - loki
+
+  loki:
+    image: grafana/loki:2.9.8
+    container_name: linky_loki
+    command: -config.file=/etc/loki/config.yml
+    volumes:
+      - ./docker/loki/loki-config.yml:/etc/loki/config.yml:ro
+      - loki_data:/loki
+    ports:
+      - "3100:3100"
+
+  promtail:
+    image: grafana/promtail:2.9.8
+    container_name: linky_promtail
+    command: -config.file=/etc/promtail/config.yml
+    volumes:
+      - ./docker/promtail/promtail-config.yml:/etc/promtail/config.yml:ro
+      - ./logs:/var/log/linky:ro
+    depends_on:
+      - loki
 
 volumes:
   postgres_data:
   prometheus_data:
   grafana_data:
+  loki_data:
 

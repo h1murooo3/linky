@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="kk" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linky — Профиль</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/main.css?v=20260425-modal-fix" />
+</head>
+<body class="theme-hh">
+    <div class="app">
+        <header class="site-header">
+            <div class="header-inner">
+                <a href="/" class="brand">
+                    <span class="brand-logo">L</span>
+                    <span class="brand-name">Linky</span>
+                </a>
+                <nav class="nav-links">
+                    <a href="/" class="nav-item" data-i18n="nav_home">Басты бет</a>
+                    <span class="nav-item active" data-i18n="nav_profile">Профиль</span>
+                </nav>
+                <div class="header-actions">
+                    <label class="sr-only" for="lang-select" data-i18n="lang_label">Тіл</label>
+                    <select id="lang-select" class="select-lang" aria-label="Language">
+                        <option value="kk">Қазақша</option>
+                        <option value="ru">Русский</option>
+                        <option value="en">English</option>
+                    </select>
+                    <div class="user-panel" id="user-panel">
+                        <span id="user-name" data-i18n="user_guest">Қонақ</span>
+                        <button type="button" id="btn-auth" class="btn btn-outline" data-i18n="btn_login">Кіру</button>
+                    </div>
+                    <button type="button" id="btn-theme-toggle" class="btn-icon" data-i18n-aria="theme_dark" aria-label="Тема">🌙</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="profile-page">
+            <div id="profile-guest-block" class="card profile-page-card" hidden>
+                <h1 data-i18n="profile_page_title">Профиль</h1>
+                <p class="card-hint" data-i18n="profile_page_login_hint">Профильді өңдеу үшін кіріңіз.</p>
+                <div class="profile-auth-cta-row">
+                    <a href="/?auth=1&tab=login" class="btn btn-primary" data-i18n="btn_login">Кіру</a>
+                    <a href="/?auth=1&tab=register" class="btn btn-outline" data-i18n="btn_signup">Тіркелу</a>
+                </div>
+            </div>
+
+            <div id="profile-form-block" class="card profile-page-card" hidden>
+                <h1 data-i18n="profile_page_title">Профиль</h1>
+                <p class="card-hint" data-i18n="profile_page_subtitle">Толтырыңыз: бұл деректер іздеу сүзгілеріне көмектеседі.</p>
+                <form id="form-profile-full" class="form profile-page-form">
+                    <label class="field"><span data-i18n="label_full_name">ТАӘ / ФИО</span>
+                        <input type="text" name="full_name" maxlength="200" autocomplete="name" />
+                    </label>
+                    <label class="field"><span data-i18n="label_age">Жас / Возраст</span>
+                        <input type="number" name="age" min="14" max="120" step="1" />
+                    </label>
+                    <label class="field"><span data-i18n="label_experience">Жалпы жұмыс тәжірибесі (жыл)</span>
+                        <input type="number" name="years_experience" min="0" max="60" step="1" />
+                    </label>
+                    <label class="field"><span data-i18n="label_about">Өзіңіз жайлы</span>
+                        <textarea name="about_me" rows="4" maxlength="2000" data-i18n-placeholder="ph_about" placeholder=""></textarea>
+                    </label>
+                    <label class="field"><span data-i18n="label_vacancy_interests">Қандай вакансиялар қызықтырады</span>
+                        <textarea name="vacancy_interests" rows="4" maxlength="4000" data-i18n-placeholder="ph_vacancy_interests" placeholder=""></textarea>
+                    </label>
+                    <label class="field"><span data-i18n="label_sal_pref_from">Ұнатқан жалақы, бастап (〒)</span>
+                        <input type="number" name="salary_filter_min" min="0" step="1000" />
+                    </label>
+                    <label class="field"><span data-i18n="label_sal_pref_to">Жалақы, дейін (〒)</span>
+                        <input type="number" name="salary_filter_max" min="0" step="1000" />
+                    </label>
+                    <button type="submit" class="btn btn-primary full" data-i18n="btn_save_profile">Сақтау</button>
+                </form>
+                <div class="form-status" id="profile-page-status"></div>
+                <p class="profile-page-back"><a href="/" data-i18n="profile_back_jobs">← Вакансияларға оралу</a></p>
+            </div>
+        </main>
+
+        <footer class="site-footer" data-i18n="footer_text">
+            © 2026 Linky — Алматыдағы жұмыс
+        </footer>
+        <div id="toast" class="toast"></div>
+    </div>
+    <script src="/static/js/profile.js?v=20260425-profile-fill"></script>
+</body>
+</html>

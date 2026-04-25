@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="kk" data-theme="light">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Алматыдағы жұмыс — Linky</title>
+    <title>Linky — Алматыдағы жұмыс</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/static/css/main.css?v=20260307-1" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/main.css?v=20260425-modal-fix" />
 </head>
 <body class="theme-hh">
     <div class="app">
@@ -18,51 +18,71 @@
                     <span class="brand-name">Linky</span>
                 </a>
                 <nav class="nav-links">
-                    <span class="nav-item active">Алматы</span>
-                    <a href="#search" class="nav-item">Ізденушілерге</a>
+                    <span class="nav-item active" data-i18n="nav_almaty">Алматы</span>
+                    <a href="/profile" class="nav-item nav-profile-link" id="nav-profile" data-i18n="nav_profile">Профиль</a>
                 </nav>
                 <div class="header-actions">
+                    <label class="sr-only" for="lang-select" data-i18n="lang_label">Тіл</label>
+                    <select id="lang-select" class="select-lang" aria-label="Language">
+                        <option value="kk">Қазақша</option>
+                        <option value="ru">Русский</option>
+                        <option value="en">English</option>
+                    </select>
                     <div class="user-panel" id="user-panel">
-                        <span id="user-name">Гость</span>
-                        <button id="btn-auth" class="btn btn-outline">Кіру</button>
+                        <span id="user-name" data-i18n="user_guest">Қонақ</span>
+                        <button type="button" id="btn-auth" class="btn btn-outline" data-i18n="btn_login">Кіру</button>
                     </div>
-                    <button id="btn-theme-toggle" class="btn-icon" aria-label="Тема">🌙</button>
+                    <button type="button" id="btn-theme-toggle" class="btn-icon" data-i18n-aria="theme_dark" aria-label="Тема">🌙</button>
                 </div>
             </div>
         </header>
 
         <section class="hero">
             <div class="hero-illus hero-illus-left" aria-hidden="true">
-                <svg width="200" height="180" viewBox="0 0 200 180" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="30" y="90" width="100" height="70" rx="12" fill="#e0f2fe"/>
-                    <rect x="45" y="105" width="70" height="45" rx="6" fill="#fff" stroke="#bae6fd"/>
-                    <circle cx="80" cy="65" r="22" fill="#fef3c7"/>
-                    <rect x="65" y="85" width="30" height="35" rx="6" fill="#2563eb"/>
-                    <rect x="60" y="118" width="40" height="42" rx="6" fill="#1e40af"/>
-                    <rect x="115" y="95" width="22" height="28" rx="4" fill="#fcd34d"/>
+                <svg class="hero-illus-svg" width="220" height="200" viewBox="0 0 220 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="hlg1" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#2563eb"/>
+                        </linearGradient>
+                        <linearGradient id="hlg2" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#fef08a"/><stop offset="100%" stop-color="#f59e0b"/>
+                        </linearGradient>
+                    </defs>
+                    <rect x="8" y="50" width="200" height="120" rx="20" fill="url(#hlg1)" opacity="0.14"/>
+                    <ellipse cx="80" cy="68" rx="32" ry="32" fill="url(#hlg2)"/>
+                    <rect x="56" y="100" width="48" height="48" rx="12" fill="#1d4ed8"/>
+                    <rect x="48" y="142" width="64" height="40" rx="12" fill="#1e3a8a"/>
+                    <rect x="130" y="88" width="64" height="12" rx="6" fill="#e2e8f0"/>
+                    <rect x="130" y="108" width="48" height="10" rx="5" fill="#cbd5e1"/>
+                    <circle cx="165" cy="68" r="6" fill="#f59e0b"/>
                 </svg>
             </div>
             <div class="hero-content">
-                <h1 class="hero-title">Алматыдағы жұмыс</h1>
-                <p class="hero-subtitle">Қызметкерді іздеу және бос жұмыс орындарын табу. Linky — №1 сервис Алматыдағы жұмыс іздеу бойынша.</p>
+                <p class="hero-badge" data-i18n="hero_badge">Алматы · HeadHunter және LinkedIn</p>
+                <h1 class="hero-title" data-i18n="hero_title">Алматыдағы жұмыс</h1>
+                <p class="hero-subtitle" data-i18n="hero_subtitle">Қызметкерді іздеу және бос жұмыс орындарын табу.</p>
                 <div class="search-block" id="search">
                     <form id="form-search" class="search-form">
                         <span class="search-icon">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
                         </span>
-                        <input type="text" name="title_search" placeholder="Мамандық, лауазым немесе компания" class="search-input" />
-                        <button type="submit" class="btn btn-primary btn-search">Табу</button>
+                        <input type="text" name="title_search" data-i18n-placeholder="search_ph" placeholder="Мамандық, лауазым немесе компания" class="search-input" />
+                        <button type="submit" class="btn btn-primary btn-search" data-i18n="search_btn">Табу</button>
                     </form>
                 </div>
             </div>
             <div class="hero-illus hero-illus-right" aria-hidden="true">
-                <svg width="200" height="180" viewBox="0 0 200 180" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="50" y="90" width="100" height="70" rx="12" fill="#e0f2fe"/>
-                    <rect x="65" y="100" width="80" height="50" rx="6" fill="#fff" stroke="#bae6fd"/>
-                    <circle cx="100" cy="60" r="20" fill="#fef3c7"/>
-                    <path d="M85 82 Q100 72 115 82 L118 118 L82 118 Z" fill="#2563eb"/>
-                    <rect x="82" y="115" width="36" height="45" rx="6" fill="#1e40af"/>
-                    <circle cx="145" y="125" r="15" fill="#86efac"/>
+                <svg class="hero-illus-svg" width="220" height="200" viewBox="0 0 220 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="hlg3" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#4ade80"/><stop offset="100%" stop-color="#16a34a"/>
+                        </linearGradient>
+                    </defs>
+                    <rect x="20" y="48" width="180" height="120" rx="20" fill="#e0f2fe" opacity="0.9"/>
+                    <circle cx="110" cy="64" r="30" fill="#fef3c7" stroke="#fde68a" stroke-width="2"/>
+                    <path d="M90 90 Q110 80 130 90 L135 128 L85 128 Z" fill="#2563eb"/>
+                    <rect x="88" y="126" width="44" height="44" rx="10" fill="#1e3a8a"/>
+                    <rect x="42" y="100" width="30" height="8" rx="4" fill="url(#hlg3)"/>
                 </svg>
             </div>
             <div class="hero-decor" aria-hidden="true">
@@ -72,77 +92,99 @@
             </div>
         </section>
 
-        <div class="stats-bar">
-            <div class="stat"><span class="stat-value" id="metric-total">0</span> <span class="stat-label">вакансиялар</span></div>
-            <div class="stat"><span class="stat-value" id="metric-hh">0</span> <span class="stat-label">HH</span></div>
-            <div class="stat"><span class="stat-value" id="metric-li">0</span> <span class="stat-label">LinkedIn</span></div>
+        <div class="stats-bar" role="toolbar" data-i18n-aria="stats_source_toolbar">
+            <button type="button" class="stat stat--clickable" id="stat-filter-all" data-job-source="" data-i18n-aria="aria_stat_all">
+                <span class="stat-value" id="metric-total">0</span>
+                <span class="stat-label" data-i18n="stat_vacancies">вакансиялар</span>
+            </button>
+            <button type="button" class="stat stat--clickable" id="stat-filter-hh" data-job-source="headhunter" data-i18n-aria="aria_stat_hh">
+                <span class="stat-value" id="metric-hh">0</span>
+                <span class="stat-label" data-i18n="stat_hh">HH</span>
+            </button>
+            <button type="button" class="stat stat--clickable" id="stat-filter-li" data-job-source="linkedin" data-i18n-aria="aria_stat_li">
+                <span class="stat-value" id="metric-li">0</span>
+                <span class="stat-label" data-i18n="stat_li">LinkedIn</span>
+            </button>
         </div>
 
         <main class="main-content">
             <aside class="filters-panel">
+                <div class="card card-profile" id="card-profile">
+                    <h2 data-i18n="profile_title">Профиль</h2>
+                    <div id="profile-guest-view" class="profile-guest-view">
+                        <p class="card-hint" data-i18n="profile_guest_intro">Вакансияларды қонақ ретінде қарауға болады. Өзіңіз жайлы, тәжірибе және жалақы сүзгісін сақтау үшін кіріңіз.</p>
+                        <button type="button" id="btn-profile-login" class="btn btn-primary full" data-i18n="btn_login">Кіру</button>
+                    </div>
+                    <div id="profile-logged-view" class="profile-logged-view" hidden>
+                        <p class="card-hint" data-i18n="profile_sidebar_hint">Толық профиль жеке бетте: ТАӘ, жас, тәжірибе, қызығатын вакансиялар.</p>
+                        <a href="/profile" class="btn btn-primary full" data-i18n="profile_open_page">Профильді ашу</a>
+                    </div>
+                </div>
                 <div class="card card-auth" id="auth-card">
-                    <h2>Кіру / Тіркелу</h2>
+                    <h2 data-i18n="side_auth">Кіру / Тіркелу</h2>
                     <div class="tabs">
-                        <button class="tab active" data-tab="login">Кіру</button>
-                        <button class="tab" data-tab="register">Тіркелу</button>
+                        <button type="button" class="tab active" data-tab="login" data-i18n="tab_login">Кіру</button>
+                        <button type="button" class="tab" data-tab="register" data-i18n="tab_register">Тіркелу</button>
                     </div>
                     <form id="form-login" class="form active">
-                        <label class="field"><span>Логин</span><input type="text" name="username" required /></label>
-                        <label class="field"><span>Құпия сөз</span><input type="password" name="password" required /></label>
-                        <button type="submit" class="btn btn-primary full">Кіру</button>
+                        <label class="field"><span data-i18n="label_login_or_email">Email немесе логин</span><input type="text" name="username" required autocomplete="username" /></label>
+                        <label class="field"><span data-i18n="label_password">Құпия сөз</span><input type="password" name="password" required autocomplete="current-password" /></label>
+                        <button type="submit" class="btn btn-primary full" data-i18n="btn_signin">Кіру</button>
                     </form>
                     <form id="form-register" class="form">
-                        <label class="field"><span>Логин</span><input type="text" name="username" required /></label>
-                        <label class="field"><span>Email</span><input type="email" name="email" required /></label>
-                        <label class="field"><span>Құпия сөз</span><input type="password" name="password" required /></label>
-                        <button type="submit" class="btn btn-secondary full">Тіркелу</button>
+                        <label class="field"><span data-i18n="label_login">Логин</span><input type="text" name="username" required /></label>
+                        <label class="field"><span data-i18n="label_email">Email</span><input type="email" name="email" required /></label>
+                        <label class="field"><span data-i18n="label_password">Құпия сөз</span><input type="password" name="password" required /></label>
+                        <button type="submit" class="btn btn-secondary full" data-i18n="btn_signup">Тіркелу</button>
                     </form>
                     <div class="form-status" id="auth-status"></div>
                 </div>
                 <div class="card filters-card">
-                    <h2>Сүзгілер</h2>
+                    <h2 data-i18n="filters_title">Сүзгілер</h2>
+                    <p class="filter-almaty-note" data-i18n="filter_almaty_only">Тек Алматы бойынша</p>
                     <form id="form-filters">
-                        <label class="field"><span>Компания</span><input type="text" name="company" placeholder="Мысалы, Kaspi" /></label>
-                        <label class="field"><span>Лауазым</span><input type="text" name="title_search" placeholder="Программист, курьер..." /></label>
-                        <label class="field"><span>Жалақыдан</span><input type="number" name="min_salary" min="0" placeholder="〒" /></label>
-                        <label class="field"><span>Жалақыға дейін</span><input type="number" name="max_salary" min="0" placeholder="〒" /></label>
-                        <label class="field"><span>Көзі</span>
+                        <label class="field"><span data-i18n="fl_company">Компания</span><input type="text" name="company" data-i18n-placeholder="fl_company_ph" placeholder="Мысалы, Kaspi" /></label>
+                        <label class="field"><span data-i18n="fl_title">Лауазым</span><input type="text" name="title_search" data-i18n-placeholder="fl_title_ph" placeholder="Программист, курьер..." /></label>
+                        <label class="field"><span data-i18n="fl_sal_from">Жалақыдан</span><input type="number" name="min_salary" min="0" placeholder="〒" /></label>
+                        <label class="field"><span data-i18n="fl_sal_to">Жалақыға дейін</span><input type="number" name="max_salary" min="0" placeholder="〒" /></label>
+                        <label class="field"><span data-i18n="fl_source">Көзі</span>
                             <select name="source">
-                                <option value="">Барлығы</option>
-                                <option value="headhunter">HeadHunter</option>
-                                <option value="linkedin">LinkedIn</option>
+                                <option value="" data-i18n="src_all">Барлығы</option>
+                                <option value="headhunter" data-i18n="src_hh">HeadHunter</option>
+                                <option value="linkedin" data-i18n="src_li">LinkedIn</option>
                             </select>
                         </label>
-                        <button type="submit" class="btn btn-primary full">Қолдану</button>
-                        <button type="button" id="btn-reset-filters" class="btn btn-ghost full">Тазалау</button>
+                        <button type="submit" class="btn btn-primary full" data-i18n="btn_apply">Қолдану</button>
+                        <button type="button" id="btn-reset-filters" class="btn btn-ghost full" data-i18n="btn_clear">Тазалау</button>
                     </form>
                 </div>
             </aside>
 
             <section class="jobs-section">
                 <div class="section-head">
-                    <h2 class="section-title">Күндік жұмыс орындары</h2>
-                    <span class="section-meta" id="jobs-count">0 нәтиже</span>
+                    <h2 class="section-title" data-i18n="jobs_title">Күндік жұмыс орындары</h2>
+                    <span class="section-meta" id="jobs-count">0</span>
+                    <button type="button" id="btn-sync-live" class="btn btn-outline btn-sync" data-i18n="btn_sync">Сыртқы деректерді жаңарту</button>
                     <div class="pager">
-                        <button id="btn-prev-page" class="btn-icon" disabled>‹</button>
+                        <button type="button" id="btn-prev-page" class="btn-icon" disabled data-i18n-aria="pager_prev" aria-label="‹">‹</button>
                         <span id="page-info">1 / 1</span>
-                        <button id="btn-next-page" class="btn-icon" disabled>›</button>
+                        <button type="button" id="btn-next-page" class="btn-icon" disabled data-i18n-aria="pager_next" aria-label="›">›</button>
                     </div>
                 </div>
                 <div class="jobs-grid" id="jobs-grid">
-                    <div class="jobs-placeholder">Жүктелуде...</div>
+                    <div class="jobs-placeholder" data-i18n="jobs_loading">Жүктелуде...</div>
                 </div>
             </section>
         </main>
 
-        <footer class="site-footer">
+        <footer class="site-footer" data-i18n="footer_text">
             © 2026 Linky — Алматыдағы жұмыс
         </footer>
 
         <div id="auth-modal" class="auth-modal" aria-hidden="true">
             <div class="auth-modal-backdrop" id="auth-modal-backdrop"></div>
             <div class="auth-modal-card">
-                <button class="auth-modal-close" id="auth-modal-close" aria-label="Жабу">×</button>
+                <button type="button" class="auth-modal-close" id="auth-modal-close" data-i18n-aria="modal_close" aria-label="Жабу">×</button>
                 <div class="auth-modal-illus auth-modal-illus-left">
                     <svg viewBox="0 0 160 140" fill="none"><rect x="20" y="60" width="80" height="60" rx="8" fill="#e0f2fe"/><rect x="30" y="72" width="60" height="38" rx="4" fill="#fff"/><circle cx="60" cy="45" r="18" fill="#fef3c7"/><rect x="48" y="62" width="24" height="28" rx="4" fill="#2563eb"/><rect x="44" y="88" width="32" height="32" rx="4" fill="#1e40af"/></svg>
                 </div>
@@ -150,21 +192,21 @@
                     <svg viewBox="0 0 160 140" fill="none"><rect x="60" y="60" width="80" height="60" rx="8" fill="#e0f2fe"/><rect x="70" y="72" width="60" height="38" rx="4" fill="#fff"/><circle cx="100" cy="45" r="18" fill="#fef3c7"/><path d="M88 65 Q100 57 112 65 L115 95 L85 95 Z" fill="#2563eb"/><rect x="85" y="93" width="30" height="27" rx="4" fill="#1e40af"/></svg>
                 </div>
                 <div class="auth-modal-body">
-                    <h2 class="auth-modal-title">Вход</h2>
+                    <h2 class="auth-modal-title" data-i18n="modal_title_login">Кіру</h2>
                     <div class="auth-modal-tabs">
-                        <button class="auth-tab active" data-tab="login">Кіру</button>
-                        <button class="auth-tab" data-tab="register">Тіркелу</button>
+                        <button type="button" class="auth-tab active" data-tab="login" data-i18n="tab_login">Кіру</button>
+                        <button type="button" class="auth-tab" data-tab="register" data-i18n="tab_register">Тіркелу</button>
                     </div>
                     <form id="form-login-modal" class="auth-form active">
-                        <label class="field"><span>Логин</span><input type="text" name="username" required /></label>
-                        <label class="field"><span>Құпия сөз</span><input type="password" name="password" required /></label>
-                        <button type="submit" class="btn btn-primary full">Кіру</button>
+                        <label class="field"><span data-i18n="label_login_or_email">Email немесе логин</span><input type="text" name="username" required autocomplete="username" /></label>
+                        <label class="field"><span data-i18n="label_password">Құпия сөз</span><input type="password" name="password" required autocomplete="current-password" /></label>
+                        <button type="submit" class="btn btn-primary full" data-i18n="btn_signin">Кіру</button>
                     </form>
                     <form id="form-register-modal" class="auth-form">
-                        <label class="field"><span>Логин</span><input type="text" name="username" required /></label>
-                        <label class="field"><span>Email</span><input type="email" name="email" required /></label>
-                        <label class="field"><span>Құпия сөз</span><input type="password" name="password" required /></label>
-                        <button type="submit" class="btn btn-secondary full">Тіркелу</button>
+                        <label class="field"><span data-i18n="label_login">Логин</span><input type="text" name="username" required /></label>
+                        <label class="field"><span data-i18n="label_email">Email</span><input type="email" name="email" required /></label>
+                        <label class="field"><span data-i18n="label_password">Құпия сөз</span><input type="password" name="password" required /></label>
+                        <button type="submit" class="btn btn-secondary full" data-i18n="btn_signup">Тіркелу</button>
                     </form>
                     <div class="form-status" id="auth-status-modal"></div>
                 </div>
@@ -173,6 +215,6 @@
 
         <div id="toast" class="toast"></div>
     </div>
-    <script src="/static/js/main.js"></script>
+    <script src="/static/js/main.js?v=20260425-auth-tab"></script>
 </body>
 </html>

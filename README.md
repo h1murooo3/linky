@@ -17,6 +17,7 @@
 - **Containerization**: Docker + docker-compose
 - **CI/CD**: GitHub Actions
 - **Observability**: Prometheus + Grafana
+- **Centralized Logs**: Loki + Promtail + Grafana Logs
 - **Performance Testing**: k6
 
 ## Быстрый старт
@@ -46,6 +47,7 @@ START.bat
 - Swagger документация: http://localhost:8000/docs
 - Prometheus (только полная версия): http://localhost:9090
 - Grafana (только полная версия): http://localhost:3000
+- Loki (только полная версия): http://localhost:3100
 
 ## Структура проекта
 
@@ -77,8 +79,10 @@ linky/
 DATABASE_URL=postgresql://user:password@db:5432/linky
 REDIS_URL=redis://redis:6379/0
 SECRET_KEY=your-secret-key-here
+ENVIRONMENT=development
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
+CORS_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
 ```
 
 ## Разработка
@@ -109,4 +113,11 @@ k6 run k6/load_test.js
 - Prometheus: http://localhost:9090
 - Grafana: http://localhost:3000 (admin/admin)
 - API Metrics: http://localhost:8000/metrics
+- Loki: http://localhost:3100
+- Централизованные логи: через Explore в Grafana (`Loki` datasource)
+
+## Performance Report
+
+- Нагрузочный скрипт: `k6/load_test.js`
+- Шаблон отчета для сдачи: `docs/performance-report.md`
 
